@@ -11,20 +11,20 @@ public class Region {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    @Column(name = "name, nullable = false")
+    private int Id;
+    @Column(name = "name", nullable = false)
     private String Name;
 
     public void setId(int id){
-        this.Id = id;
+        Id = id;
     }
 
-    public int getId(){
+    public Integer getId(){
         return Id;
     }
 
     public void setName(String name){
-        this.Name = name;
+        Name = name;
     }
 
     public String getName(){

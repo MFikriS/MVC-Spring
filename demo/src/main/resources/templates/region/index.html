@@ -19,7 +19,21 @@
                     <tr th:each="region : ${regions}">
                         <td th:text="${region.id}"></td>
                         <td th:text="${region.name}"></td>
-                        <td>Edit | Delete</td>
+                        <td>
+                            <a 
+                                class="btn btn-primary"
+                                style="margin-bottom: 10px; margin-top: 10px; color: azure;"
+                                th:href="@{/region/edit/{id}(id=${region.id})}"
+                            >Edit
+                            </a>
+                            
+                            <a 
+                                class="btn btn-primary"
+                                style="margin-bottom: 10px; margin-top: 10px; color: azure;"
+                                th:href="@{/region/delete/{id}(id=${region.id})}"
+                            >Delete
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

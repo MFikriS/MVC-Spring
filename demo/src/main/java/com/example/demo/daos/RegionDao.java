@@ -29,7 +29,28 @@ public class RegionDao {
         return regions;
     }
 
-    public boolean insertData(Region region){
+    public List<Region> getById(int id) {
+        List<Region> regions = new ArrayList<>();
+        String query = "SELECT * FROM tb_m_region WHERE Id = " + id;
+
+        try {
+            ResultSet resultSet = con
+                    .prepareStatement(query)
+                    .executeQuery();
+            while (resultSet.next()) {
+                Region region = new Region();
+                region.setId(resultSet.getInt(1));
+                region.setName(resultSet.getString(2));
+                regions.add(region);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return regions;
+    }
+    
+
+    public Boolean insertData(Region region){
         try {
             PreparedStatement preparedStatement = con.prepareStatement("Insert INTO tb_m_region(Id, Name) values(?,?)");
             preparedStatement.setInt(1, region.getId());
@@ -59,7 +80,7 @@ public class RegionDao {
         return false;
     }
 
-    public boolean delete(Region region){
+    public Boolean delete(Region region){
         try {
             String query = "Delete from tb_m_region where Id = ?";
             PreparedStatement preparedStatement = con.prepareStatement(query);
