@@ -19,9 +19,11 @@ public class DivisionDao {
             ResultSet resultSet = con.prepareStatement(query).executeQuery();
             while (resultSet.next()){
                 Division division = new Division();
+                Region region = new Region();
                 division.setId(resultSet.getInt(1));
                 division.setName(resultSet.getString(2));
-                division.setRegion(resultSet.getObject(3, region.getName()));
+                division.setRegion(region);
+                region.setName(resultSet.getString(3));
                 divisions.add(division);
             }
         } catch (Exception e) {
@@ -40,7 +42,7 @@ public class DivisionDao {
             while (resultSet.next()) {
                 division.setId(resultSet.getInt(1));
                 division.setName(resultSet.getString(2));
-                division.setRegionId(resultSet.getInt(3));
+                //division.setRegionId(resultSet.getInt(3));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +54,7 @@ public class DivisionDao {
         try {
             PreparedStatement preparedStatement = con.prepareStatement("Insert INTO tb_m_division(Name, RegionId) values(?,?)");
             preparedStatement.setString(1, division.getName());
-            preparedStatement.setInt(2, division.getRegionId());
+            // preparedStatement.setInt(2, division.getRegionId());
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
         } catch (SQLException e){

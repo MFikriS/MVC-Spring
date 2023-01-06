@@ -1,7 +1,5 @@
 package com.example.demo.models;
 
-// import java.util.Set;
-import java.util.*;
 
 import javax.persistence.*;
 
@@ -15,10 +13,6 @@ public class Region {
     private Integer Id;
     @Column(name = "name", nullable = false)
     private String Name;
-
-    @OneToMany(targetEntity=Division.class, mappedBy="regionId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)    
-    private List<Region> region = new ArrayList<>();
-
 
     public void setId(Integer id){
         Id = id;
