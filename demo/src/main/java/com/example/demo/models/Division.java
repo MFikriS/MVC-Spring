@@ -4,7 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 
 //import java.util.Set;
 
@@ -24,11 +25,9 @@ public class Division {
     @Column(name = "name", nullable = false) 
     private String Name;
 
-    @Column(name = "regionId")
-    private Integer RegionId;
-
-    @Column(name = "regionName")
-    private String RegionName;
+    @ManyToOne
+    @JoinColumn(name = "regionId", referencedColumnName = "id")
+    private Region region;
 
     public void setId(Integer id){
         Id = id;
@@ -46,19 +45,13 @@ public class Division {
         return Name;
     }
 
-    public void setRegionId(Integer regionId){
-        RegionId = regionId;
+    public void setRegion(Region region){
+        this.region = region;
+        
     }
 
-    public Integer getRegionId(){
-        return RegionId;
+    public Region getRegion(){
+        return region;
     }
 
-    public void setRegionName(String regionName){
-        RegionName = regionName;
-    }
-
-    public String getRegionName(){
-        return RegionName;
-    }
 }

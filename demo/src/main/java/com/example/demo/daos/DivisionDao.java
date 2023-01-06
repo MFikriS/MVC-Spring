@@ -3,6 +3,7 @@ package com.example.demo.daos;
 import java.sql.*;
 import java.util.*;
 import com.example.demo.models.Division;
+import com.example.demo.models.Region;
 
 public class DivisionDao {
     private Connection con;
@@ -13,14 +14,14 @@ public class DivisionDao {
 
     public List<Division> getAll(){
         List<Division> divisions = new ArrayList<>();
-        String query = "Select d.Id, d.Name, r.Name from tb_m_division d Join tb_m_region r On d.regionId = r.Id";
+        String query = "Select * from tb_m_division";
         try{
             ResultSet resultSet = con.prepareStatement(query).executeQuery();
             while (resultSet.next()){
                 Division division = new Division();
                 division.setId(resultSet.getInt(1));
                 division.setName(resultSet.getString(2));
-                division.setRegionName(resultSet.getString(3));
+                division.setRegion(resultSet.getObject(3, region.getName()));
                 divisions.add(division);
             }
         } catch (Exception e) {
