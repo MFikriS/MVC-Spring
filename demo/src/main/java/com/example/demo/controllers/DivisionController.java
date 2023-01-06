@@ -29,6 +29,7 @@ public class DivisionController {
         if(id != null){
             model.addAttribute("division", dDao.getById(id));
         } else {
+            // model.addAttribute("division", dDao.getNameRegion());
             model.addAttribute("division", new Division());
         }
         return "division/form";

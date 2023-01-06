@@ -14,16 +14,16 @@ public class DivisionDao {
 
     public List<Division> getAll(){
         List<Division> divisions = new ArrayList<>();
-        String query = "Select * from tb_m_division";
+        String query = "Select d.Id, d.Name, r.Name from tb_m_division d JOIN tb_m_region r ON d.regionId = r.Id";
         try{
             ResultSet resultSet = con.prepareStatement(query).executeQuery();
             while (resultSet.next()){
                 Division division = new Division();
-                Region region = new Region();
+                Region regions = new Region();
                 division.setId(resultSet.getInt(1));
                 division.setName(resultSet.getString(2));
-                division.setRegion(region);
-                region.setName(resultSet.getString(3));
+                division.setRegion(regions);
+                regions.setName(resultSet.getString(3));
                 divisions.add(division);
             }
         } catch (Exception e) {
@@ -32,17 +32,36 @@ public class DivisionDao {
         return divisions;
     }
 
+    public Division getNameRegion() {
+        Division division = new Division();
+        String query = "SELECT r.Name FROM tb_m_division d Join tb_m_region r On d.regionId = r.Id";
+        try {
+            PreparedStatement prepareStatement = con.prepareStatement(query);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                Region region = new Region();
+                division.setRegion(region);
+                region.setName(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return division;
+    }
+
     public Division getById(int id) {
         Division division = new Division();
-        String query = "SELECT * FROM tb_m_division WHERE Id = ?";
+        String query = "SELECT r.Name FROM tb_m_division d Join tb_m_region r On d.regionId = r.divisionId WHERE d.Id = ?";
         try {
             PreparedStatement prepareStatement = con.prepareStatement(query);
             prepareStatement.setInt(1, id);
             ResultSet resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
+                Region region = new Region();
                 division.setId(resultSet.getInt(1));
                 division.setName(resultSet.getString(2));
-                //division.setRegionId(resultSet.getInt(3));
+                division.setRegion(region);
+                region.setId(resultSet.getInt(id));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,7 +73,7 @@ public class DivisionDao {
         try {
             PreparedStatement preparedStatement = con.prepareStatement("Insert INTO tb_m_division(Name, RegionId) values(?,?)");
             preparedStatement.setString(1, division.getName());
-            // preparedStatement.setInt(2, division.getRegionId());
+            preparedStatement.setInt(2, division.getRegion().getId());
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
         } catch (SQLException e){
