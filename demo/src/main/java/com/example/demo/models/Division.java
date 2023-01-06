@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "tb_m_division")
 
@@ -18,26 +19,46 @@ public class Division {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Integer Id;
 
-    
+    @Column(name = "name", nullable = false) 
     private String Name;
-    @Column(name = "name") 
 
-    public void setId(int Id){
-        this.Id = Id;
+    @Column(name = "regionId")
+    private Integer RegionId;
+
+    @Column(name = "regionName")
+    private String RegionName;
+
+    public void setId(Integer id){
+        Id = id;
     }
 
-    public int getId(){
-        return this.Id;
+    public Integer getId(){
+        return Id;
     }
 
-    public void setName(String Name){
-        this.Name = Name;
+    public void setName(String name){
+        Name = name;
     }
 
     public String getName(){
-        return this.Name;
+        return Name;
     }
 
+    public void setRegionId(Integer regionId){
+        RegionId = regionId;
+    }
+
+    public Integer getRegionId(){
+        return RegionId;
+    }
+
+    public void setRegionName(String regionName){
+        RegionName = regionName;
+    }
+
+    public String getRegionName(){
+        return RegionName;
+    }
 }

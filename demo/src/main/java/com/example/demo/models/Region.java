@@ -11,11 +11,11 @@ public class Region {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Integer Id;
     @Column(name = "name", nullable = false)
     private String Name;
 
-    public void setId(int id){
+    public void setId(Integer id){
         Id = id;
     }
 

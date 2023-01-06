@@ -28,33 +28,29 @@ public class RegionDao {
         }
         return regions;
     }
-
-    public List<Region> getById(int id) {
-        List<Region> regions = new ArrayList<>();
-        String query = "SELECT * FROM tb_m_region WHERE Id = " + id;
-
+    
+    public Region getById(int id) {
+        Region region = new Region();
+        String query = "SELECT * FROM tb_m_region WHERE Id = ?";
         try {
-            ResultSet resultSet = con
-                    .prepareStatement(query)
-                    .executeQuery();
+            PreparedStatement prepareStatement = con.prepareStatement(query);
+            prepareStatement.setInt(1, id);
+            ResultSet resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
-                Region region = new Region();
                 region.setId(resultSet.getInt(1));
                 region.setName(resultSet.getString(2));
-                regions.add(region);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return regions;
+        return region;
     }
     
 
-    public Boolean insertData(Region region){
+    public boolean insertData(Region region){
         try {
-            PreparedStatement preparedStatement = con.prepareStatement("Insert INTO tb_m_region(Id, Name) values(?,?)");
-            preparedStatement.setInt(1, region.getId());
-            preparedStatement.setString(2, region.getName());
+            PreparedStatement preparedStatement = con.prepareStatement("Insert INTO tb_m_region(Name) values(?)");
+            preparedStatement.setString(1, region.getName());
             preparedStatement.executeUpdate();
             //int temp = preparedStatement.executeUpdate();
             //return temp > 0;
@@ -80,11 +76,11 @@ public class RegionDao {
         return false;
     }
 
-    public Boolean delete(Region region){
+    public Boolean delete(Integer id){
         try {
             String query = "Delete from tb_m_region where Id = ?";
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setInt(1, region.getId());
+            preparedStatement.setInt(1, id);
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
         } catch (SQLException e){

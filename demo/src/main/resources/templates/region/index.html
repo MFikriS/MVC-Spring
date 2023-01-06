@@ -23,15 +23,16 @@
                             <a 
                                 class="btn btn-primary"
                                 style="margin-bottom: 10px; margin-top: 10px; color: azure;"
-                                th:href="@{/region/edit/{id}(id=${region.id})}"
+                                th:href="@{/region/form/{id}(id=${region.id})}"
                             >Edit
                             </a>
                             
-                            <a 
-                                class="btn btn-primary"
+                            <form th:action="@{/region/delete/{id}(id=${region.id})}" th:method="post"> 
+                                <button type="submit" class="btn btn-danger"
                                 style="margin-bottom: 10px; margin-top: 10px; color: azure;"
-                                th:href="@{/region/delete/{id}(id=${region.id})}"
-                            >Delete
+                                >Delete
+                                </button>
+                            </form>
                             </a>
                         </td>
                     </tr>

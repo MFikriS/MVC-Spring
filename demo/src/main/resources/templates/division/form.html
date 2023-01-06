@@ -5,17 +5,23 @@
     <body>
         <div class="container">
             <form
-                th:action="@{/update/{id}(id=${region.id})}" 
+                th:action="@{/division/save}"
                 method="post"
-                th:object="${region}"
+                th:object="${division}"
             >
                 <div class="form-group" hidden>
                     <label for="Id" class = "col-form-label">ID</label>
-                    <input type="text" class="form-control" id="id" th:field="*{region.id}">
+                    <input type="text" class="form-control" id="id" th:field="*{id}">
                 </div>
                 <div  class="form-group col-md-4">
                     <label for="Name" class="col-form-label">NAME</label>
-                    <input type="text" class="form-control" id="name" th:field="*{region.name}">
+                    <input type="text" class="form-control" id="name" th:field="*{name}">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="Name" class="col-form-label">REGION ID</label>
+                    <select class="custom-select my-1 mr-sm-2" id="regionId" th:field="*{regionId}">
+                        <option th:value="'17'" th:text="17"</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
