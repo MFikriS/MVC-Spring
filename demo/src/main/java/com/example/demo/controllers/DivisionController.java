@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.daos.DivisionDao;
+import com.example.demo.daos.RegionDao;
 import com.example.demo.models.Division;
 import com.example.demo.tools.DBConnection;
 
@@ -16,6 +17,7 @@ import com.example.demo.tools.DBConnection;
 @RequestMapping("division")
 public class DivisionController {
     private DivisionDao dDao = new DivisionDao(DBConnection.getConnection());
+    private RegionDao rDao = new RegionDao(DBConnection.getConnection());
 
     @GetMapping
     public String index(Model model) {
@@ -28,9 +30,10 @@ public class DivisionController {
     public String create(@PathVariable (required = false) Integer id, Model model){
         if(id != null){
             model.addAttribute("division", dDao.getById(id));
+            model.addAttribute("regions", rDao.getAll());
         } else {
-            // model.addAttribute("division", dDao.getNameRegion());
             model.addAttribute("division", new Division());
+            model.addAttribute("regions", rDao.getAll());
         }
         return "division/form";
     }
