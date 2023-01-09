@@ -69,12 +69,12 @@ public class DivisionDao {
 
     public boolean updateData(Division division){
         try {
-            String query = "Update tb_m_division SET Id = ?, Name = ?, regionId = ? WHERE Id = ?";
+            String query = "Update tb_m_division SET Name = ?, regionId = ? WHERE Id = ?";
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setInt(1, division.getId());
-            preparedStatement.setString(2, division.getName());
-            preparedStatement.setInt(3, division.getRegion().getId());
-            preparedStatement.setInt(4, division.getId());
+            // preparedStatement.setInt(1, division.getId());
+            preparedStatement.setString(1, division.getName());
+            preparedStatement.setInt(2, division.getRegion().getId());
+            preparedStatement.setInt(3, division.getId());
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
         } catch (SQLException e){
