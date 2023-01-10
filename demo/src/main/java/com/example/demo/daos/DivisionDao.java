@@ -34,7 +34,7 @@ public class DivisionDao {
 
     public Division getById(Integer id) {
         Division division = new Division();
-        String query = "SELECT d.Id, d.Name, r.Name, r.Id FROM tb_m_division d Join tb_m_region r On d.regionId = r.Id WHERE d.Id = ?";
+        String query = "SELECT * FROM tb_m_division d Join tb_m_region r On d.regionId = r.Id WHERE d.Id = ?";
         try {
             PreparedStatement prepareStatement = con.prepareStatement(query);
             prepareStatement.setInt(1, id);
@@ -71,7 +71,6 @@ public class DivisionDao {
         try {
             String query = "Update tb_m_division SET Name = ?, regionId = ? WHERE Id = ?";
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            // preparedStatement.setInt(1, division.getId());
             preparedStatement.setString(1, division.getName());
             preparedStatement.setInt(2, division.getRegion().getId());
             preparedStatement.setInt(3, division.getId());
